@@ -19,6 +19,35 @@ print('Reading', INPUT)
 df = pd.read_csv(INPUT, low_memory=False)
 print('Data shape:', df.shape)
 
+# Detect and drop label-derived columns generated during PDF extraction
+def detect_label_columns(df):
+    diag = set(['y','yes','p','positive','1','true','t'])
+    non_diag = set(['n','no','0','negative','false','f'])
+    label_cols = []
+    for c in df.columns:
+        try:
+            vals = df[c].astype(str).str.strip().str.lower()
+        except Exception:
+            continue
+        dc = int(vals.isin(diag).sum())
+        nc = int(vals.isin(non_diag).sum())
+        if dc + nc > 0:
+            # mark as label-derived if a non-trivial number of rows contain label tokens
+            if (dc + nc) > max(5, int(0.01 * len(vals))):
+                label_cols.append((c, dc, nc))
+    return label_cols
+
+label_candidates = detect_label_columns(df)
+if label_candidates:
+    print('\nDetected label-like columns (will drop from features):')
+    for c, dc, nc in label_candidates:
+        print(f"  {c}: diag={dc}, non-diag={nc}")
+    # drop only the column names (keep CLASS if present)
+    drop_cols = [c for c,dc,nc in label_candidates if c.lower() != 'class']
+    if drop_cols:
+        df = df.drop(columns=drop_cols, errors='ignore')
+        print('Dropped columns:', drop_cols)
+
 # find target column
 possible_targets = ('class', 'outcome', 'diabetes', 'target')
 class_col = None

@@ -9,3 +9,6 @@ seaborn
 pydantic
 pdfplumber
 python-dotenv
+pytest
+httpx
+fastapi[all]
