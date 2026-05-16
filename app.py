@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from enum import Enum
 from pydantic import BaseModel, Field
 import joblib
 import pandas as pd
@@ -22,6 +23,11 @@ if os.path.exists(SCALER_PATH):
     scaler = joblib.load(SCALER_PATH)
 
 # Pydantic model
+class Gender(str, Enum):
+    M = 'M'
+    F = 'F'
+
+
 class PatientData(BaseModel):
     age: float = Field(..., alias='age')
     urea: float
@@ -33,7 +39,7 @@ class PatientData(BaseModel):
     ldl: float
     vldl: float
     bmi: float
-    gender: str
+    gender: Gender
 
 def normalize_gender(g):
     if g is None:

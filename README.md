@@ -49,7 +49,3 @@ Notes and caveats
 - The dataset extraction pipeline originally leaked label tokens into feature columns. Retraining after removing label-derived features is strongly recommended to obtain realistic model performance.
 - The `models/` directory contains `diabetes_model.pkl`, `training_columns.pkl`, and `scaler.pkl` produced by the current training script. These are used by `app.py`.
 
-If you want, I can:
-1) Retrain models after dropping label-derived features and update `models/` artifacts.
-2) Add unit tests for the API.
-3) Dockerize the API with a Dockerfile.

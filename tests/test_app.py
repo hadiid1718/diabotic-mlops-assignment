@@ -16,11 +16,10 @@ def test_predict_non_diabetic_payload():
     r = client.post('/predict', json=payload)
     assert r.status_code == 200
 
-def test_predict_invalid_gender_accepts():
+def test_predict_invalid_gender_returns_422():
     payload = {"age":45, "urea":5.0, "cr":50.0, "hba1c":6.0, "chol":5.0, "tg":1.5, "hdl":1.2, "ldl":2.5, "vldl":0.8, "bmi":25.0, "gender":"X"}
     r = client.post('/predict', json=payload)
-    # current app accepts unknown gender values; ensure it returns a prediction
-    assert r.status_code == 200
+    assert r.status_code == 422
 
 def test_missing_fields_returns_422():
     payload = {"age":50, "urea":5.0, "cr":50.0}
