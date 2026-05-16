@@ -9,6 +9,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+import joblib
 
 INPUT = os.path.join(os.path.dirname(__file__), '..', 'diabetes_cleaned.csv')
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'models')
@@ -93,6 +94,8 @@ models = {
     'KNN': KNeighborsClassifier(n_neighbors=5)
 }
 
+trained_models = {}
+
 results = []
 for name, model in models.items():
     print('\nTraining', name)
@@ -103,6 +106,9 @@ for name, model in models.items():
     else:
         model.fit(X_train, y_train)
         preds = model.predict(X_test)
+
+    # store trained model
+    trained_models[name] = model
 
     acc = accuracy_score(y_test, preds)
     prec = precision_score(y_test, preds, zero_division=0)
@@ -118,3 +124,18 @@ print(res_df.to_string(index=False))
 res_csv = os.path.join(OUT_DIR, 'models_comparison.csv')
 res_df.to_csv(res_csv, index=False)
 print('Saved comparison to', res_csv)
+
+# Part 4: Select best model and save model + training columns
+best_name = res_df.iloc[0]['model']
+best_model = trained_models.get(best_name)
+if best_model is not None:
+    model_path = os.path.join(OUT_DIR, 'diabetes_model.pkl')
+    joblib.dump(best_model, model_path)
+    print('Saved best model ({}) to {}'.format(best_name, model_path))
+
+    cols_path = os.path.join(OUT_DIR, 'training_columns.pkl')
+    training_columns = list(X.columns)
+    joblib.dump(training_columns, cols_path)
+    print('Saved training columns to', cols_path)
+else:
+    print('Could not find trained model object for', best_name)
