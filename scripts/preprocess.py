@@ -94,6 +94,10 @@ for c in num_cols:
 
 # For remaining object columns (should be none after get_dummies), fill mode
 obj_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
+# Do not fill missing values for the target column; leave them so we can drop unlabeled rows before training
+if target_col and target_col in obj_cols:
+    obj_cols = [c for c in obj_cols if c != target_col]
+
 for c in obj_cols:
     if df[c].isna().any():
         mode_val = df[c].mode(dropna=True)
