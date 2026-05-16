@@ -85,6 +85,10 @@ print('Train/test sizes:', X_train.shape, X_test.shape)
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
+# save scaler for use at inference
+scaler_path = os.path.join(OUT_DIR, 'scaler.pkl')
+joblib.dump(scaler, scaler_path)
+print('Saved scaler to', scaler_path)
 
 models = {
     'LogisticRegression': LogisticRegression(solver='liblinear', max_iter=1000),
