@@ -1,0 +1,16 @@
+{
+  "detail": [
+    {
+      "type": "enum",
+      "loc": [
+        "body",
+        "gender"
+      ],
+      "msg": "Input should be 'M' or 'F'",
+      "input": "X",
+      "ctx": {
+        "expected": "'M' or 'F'"
+      }
+    }
+  ]
+}

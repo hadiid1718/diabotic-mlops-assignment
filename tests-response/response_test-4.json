@@ -1,0 +1,108 @@
+{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "hba1c"
+      ],
+      "msg": "Field required",
+      "input": {
+        "age": 50,
+        "urea": 5,
+        "cr": 50
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "chol"
+      ],
+      "msg": "Field required",
+      "input": {
+        "age": 50,
+        "urea": 5,
+        "cr": 50
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "tg"
+      ],
+      "msg": "Field required",
+      "input": {
+        "age": 50,
+        "urea": 5,
+        "cr": 50
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "hdl"
+      ],
+      "msg": "Field required",
+      "input": {
+        "age": 50,
+        "urea": 5,
+        "cr": 50
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "ldl"
+      ],
+      "msg": "Field required",
+      "input": {
+        "age": 50,
+        "urea": 5,
+        "cr": 50
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "vldl"
+      ],
+      "msg": "Field required",
+      "input": {
+        "age": 50,
+        "urea": 5,
+        "cr": 50
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "bmi"
+      ],
+      "msg": "Field required",
+      "input": {
+        "age": 50,
+        "urea": 5,
+        "cr": 50
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "gender"
+      ],
+      "msg": "Field required",
+      "input": {
+        "age": 50,
+        "urea": 5,
+        "cr": 50
+      }
+    }
+  ]
+}
